@@ -10,6 +10,9 @@
   <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1Zh9hrFsy85mGUt4l3V6RKwiPXXS5CzQ2">
   <!-- ======================================================= -->
 
+  <!-- Font Awesome สำหรับไอคอนปุ่ม Full Screen -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     /* กำหนดให้หน้าเว็บเต็มจอ ไม่มีขอบขาว */
     body, html {
@@ -21,6 +24,7 @@
       flex-direction: column;
       font-family: 'Sarabun', sans-serif;
       background-color: #EEF2F6;
+      overflow: hidden; /* ป้องกันแถบ Scrollbar ซ้อนทับ */
     }
     
     /* แถบด้านบนสำหรับใส่ Logo */
@@ -45,6 +49,7 @@
       flex: 1;
       width: 100%;
       height: 100%;
+      position: relative; /* สำคัญ: เพื่อให้ปุ่มลอยอ้างอิงตำแหน่งจากกล่องนี้ */
     }
 
     /* กำหนด iframe ให้เต็มพื้นที่ */
@@ -53,17 +58,84 @@
       height: 100%;
       border: none;
     }
+
+    /* สไตล์ของปุ่ม Full Screen ลอยตัวมุมขวาล่าง */
+    #fullscreenBtn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba(11, 30, 51, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    #fullscreenBtn:hover {
+      background-color: rgba(11, 30, 51, 1);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
+  
   <!-- ส่วนแสดง Web App -->
   <div class="app-container">
+    <!-- ปุ่ม Full Screen -->
+    <button id="fullscreenBtn" onclick="toggleFullScreen()" title="Full screen">
+      <i class="fas fa-expand"></i>
+    </button>
+
     <iframe 
       src="https://script.google.com/macros/s/AKfycbxNFYc_VLVmG5FlyZ2hzNim_e6xSDsK43zsrM5Z8SrqBLYhrXnUS7tMKgl0BxNuKO2KKA/exec?view=board" 
       allow="geolocation; camera" 
-      frameborder="0">
+      frameborder="0"
+      allowfullscreen>
     </iframe>
   </div>
 
+  <!-- JavaScript สำหรับควบคุม Full Screen -->
+  <script>
+    function toggleFullScreen() {
+      const elem = document.documentElement; // ทำให้เต็มจอทั้งหน้า HTML
+      const btnIcon = document.querySelector('#fullscreenBtn i');
+      const isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+
+      if (!isFull) {
+        // เข้าโหมด Full Screen
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch(err => console.log(err));
+        } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome */
+          elem.webkitRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+        btnIcon.className = 'fas fa-compress'; // เปลี่ยนไอคอนเป็นย่อจอ
+      } else {
+        // ออกจากโหมด Full Screen
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        btnIcon.className = 'fas fa-expand'; // เปลี่ยนไอคอนเป็นขยายจอ
+      }
+    }
+  </script>
 </body>
 </html>
