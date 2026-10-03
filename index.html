@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLC DISPATCH</title>
+  
+  <!-- ================= เพิ่ม Favicon ตรงนี้ ================= -->
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1Zh9hrFsy85mGUt4l3V6RKwiPXXS5CzQ2">
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1Zh9hrFsy85mGUt4l3V6RKwiPXXS5CzQ2">
+  <!-- ======================================================= -->
+
+  <style>
+    /* กำหนดให้หน้าเว็บเต็มจอ ไม่มีขอบขาว */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Sarabun', sans-serif;
+      background-color: #EEF2F6;
+    }
+    
+    /* แถบด้านบนสำหรับใส่ Logo */
+    .top-header {
+      background-color: #0B1E33; /* สีน้ำเงินเข้มให้เข้ากับธีมแอป */
+      height: 60px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    /* ขนาดของ Logo */
+    .top-header img {
+      height: 40px; /* ปรับขนาดโลโก้ได้ที่นี่ */
+      object-fit: contain;
+    }
+
+    /* พื้นที่สำหรับแสดงแอป */
+    .app-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* กำหนด iframe ให้เต็มพื้นที่ */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- ส่วนแสดง Web App -->
+  <div class="app-container">
+    <iframe 
+      src="https://script.google.com/macros/s/AKfycbwNLGOVRnEx0tahpuCuWZXQQI1OcLdXbe5BcNdmtuPMqj81CrR-HlMdW_Wvo1tqcbfi/exec" 
+      allow="geolocation; camera" 
+      frameborder="0">
+    </iframe>
+  </div>
+
+</body>
+</html>
